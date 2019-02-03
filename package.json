@@ -1,0 +1,27 @@
+{
+  "name": "nt222fc-1dv600-hangman",
+  "version": "1.0.0",
+  "description": "The classic hangman game console application",
+  "main": "main.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niall-thurrat/nt222fc_1dv600.git"
+  },
+  "keywords": [
+    "hangman",
+    "game"
+  ],
+  "author": "Niall Thurrat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niall-thurrat/nt222fc_1dv600/issues"
+  },
+  "homepage": "https://github.com/niall-thurrat/nt222fc_1dv600#readme",
+  "devDependencies": {
+    "standard": "^12.0.1"
+  }
+}
