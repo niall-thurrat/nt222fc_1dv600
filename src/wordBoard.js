@@ -2,7 +2,7 @@
 const wordGenerator = require('./wordGenerator')
 
 function updateBoard () {
-  console.log(wordGenerator.getNewWord())
+  return wordGenerator.getNewWord()
 }
 
 module.exports.updateBoard = updateBoard
