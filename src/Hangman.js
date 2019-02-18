@@ -8,7 +8,7 @@ function PlayGame (test) {
 
   this.test = function () {
     console.log(imageGenerator.getNewImage('banner'))
-    console.log(imageGenerator.getNewImage('hangman-base'))
+    console.log(imageGenerator.getNewImage('hangman-image'))
     console.log(wordBoard.updateBoard())
     console.log(messageGenerator.newMessage('new-game'))
     console.log('MENU will appear here')

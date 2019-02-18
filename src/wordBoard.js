@@ -2,7 +2,7 @@
 const wordGenerator = require('./wordGenerator')
 
 function updateBoard () {
-  return wordGenerator.getNewWord()
+  return `SECRET WORD: ${wordGenerator.getNewWord()}`
 }
 
 module.exports.updateBoard = updateBoard

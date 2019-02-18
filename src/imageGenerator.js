@@ -1,10 +1,10 @@
 
-function getNewImage (imageType) {
+function getNewImage (imageType, wrongGuesses = 0) {
   if (imageType === 'banner') {
-    return 'here\'s a banner!'
+    return '###   HANGMAN   ###\n'
   }
-  if (imageType === 'hangman-base') {
-    return 'here\'s a hangman base'
+  if (imageType === 'hangman-image') {
+    return `Hangman: ${wrongGuesses} wrong guesses\n`
   }
 }
 
