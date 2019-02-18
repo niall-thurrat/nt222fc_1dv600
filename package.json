@@ -23,5 +23,8 @@
   "homepage": "https://github.com/niall-thurrat/nt222fc_1dv600#readme",
   "devDependencies": {
     "standard": "^12.0.1"
+  },
+  "dependencies": {
+    "clear": "^0.1.0"
   }
 }
