@@ -3,7 +3,7 @@ const wordGenerator = require('./wordGenerator')
 
 function updateBoard (guessedLetter, guessesLeft) {
   let secretWord = wordGenerator.getNewWord()
-  console.log(`SECRET WORD: ${secretWord}`)
+  console.log(`SECRET WORD REVEALED: ${secretWord}`)
 
   var progressWord = []
   for (var i = 0; i < secretWord.length; i++) { progressWord.push('-') }
@@ -24,7 +24,7 @@ function updateBoard (guessedLetter, guessesLeft) {
     console.log('player loses game')
   }
 
-  return `PROGRESS WORD: ${progressWord.join(' ')}` // will form a string from the array, with a space as as delimeter
+  return `SECRET WORD: ${progressWord.join(' ')}` // will form a string from the array, with a space as as delimeter
 }
 
 module.exports.updateBoard = updateBoard

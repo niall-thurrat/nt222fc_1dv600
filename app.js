@@ -1,7 +1,7 @@
 
-const hangman = require('./src/Hangman')
-const PlayHangman = hangman.PlayGame
+const game = require('./src/Hangman')
+const Hangman = game.Hangman
 
-const playHangman = new PlayHangman()
+const hangman = new Hangman()
 
-playHangman.test()
+hangman.startScreen()
