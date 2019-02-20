@@ -10,13 +10,13 @@ const messageGenerator = require('./messageGenerator')
 const LocalStorage = require('node-localstorage').LocalStorage
 const localStorage = new LocalStorage('./localstorage')
 
-let remainingTries = 2
-
 /**
 *
 *
 */
 function Hangman () {
+  this.parsedWordObject = {}
+  this.startingTries = 2
   /*
   *
   *
@@ -52,34 +52,37 @@ function Hangman () {
     // IF NEW GAME - no word exists yet - get a new word and save it in localstorage
     if (!localStorage.getItem('currentGameWord')) {
       let newWord = wordGenerator.getNewWord()
-      let wordObject = { secretWord: newWord, progressWord: '', remainingTries: remainingTries }
+      let wordObject = { secretWord: newWord, progressWord: '', remainingTries: this.startingTries }
       localStorage.setItem('currentGameWord', JSON.stringify(wordObject))
     }
 
     // send the secret word and guessed letter (if any) to wordUpdater
-    // wordUpdater returns an updated word Object
-    let parsedWordObject = wordUpdater.updateWord(localStorage.getItem('currentGameWord'), guessedLetter)
+    // wordUpdater returns an updated word object
+    this.parsedWordObject = wordUpdater.updateWord(localStorage.getItem('currentGameWord'), guessedLetter)
 
     // IF GAME IS LOST - no remaining tries
-    if (parsedWordObject.remainingTries === 0) {
-      localStorage.removeItem('currentGameWord')
-      clear()
-      console.log('\n\n    YOU LOSE!!!\n\n\n\n\n\n\n')
-      setTimeout(function () { this.startScreen() }.bind(this), 2000)
+    if (this.parsedWordObject.remainingTries === 0) {
+      this.gameCompleted('lost')
+      return
+    }
+
+    // IF GAME IS WON - no remaining letters to guess in secret word
+    if (this.parsedWordObject.progressWord.replace(/\s+/g, '') === this.parsedWordObject.secretWord) {
+      this.gameCompleted('won')
       return
     }
 
     // print title banner and hangman image
     console.log(imageGenerator.getNewImage('banner'))
-    console.log(imageGenerator.getNewImage('hangman-image-' + parsedWordObject.remainingTries))
+    console.log(imageGenerator.getNewImage('hangman-image-' + this.parsedWordObject.remainingTries))
 
     // store updated word object as a string in localstorage
-    localStorage.setItem('currentGameWord', JSON.stringify(parsedWordObject))
+    localStorage.setItem('currentGameWord', JSON.stringify(this.parsedWordObject))
 
     // print game details to termainal
-    console.log(`SECRET WORD: ${parsedWordObject.progressWord}`)
-    console.log(`REMAING TRIES: ${parsedWordObject.remainingTries}`)
-    // console.log(messageGenerator.newMessage('game-message-' + parsedWordObject.remainingTries))
+    console.log(`SECRET WORD: ${this.parsedWordObject.progressWord}`)
+    console.log(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`)
+    // console.log(messageGenerator.newMessage('game-message-' + this.parsedWordObject.remainingTries))
 
     // print menu title and options to terminal
     console.log('\nMENU')
@@ -107,6 +110,21 @@ function Hangman () {
       localStorage.removeItem('currentGameWord')
       clear()
     }
+  }
+
+  /*
+  *
+  *
+  */
+  this.gameCompleted = function (result) {
+    localStorage.removeItem('currentGameWord')
+    clear()
+    if (result === 'lost') {
+      console.log('\n\n    YOU LOSE!!!\n\n\n\n\n\n\n')
+    } else {
+      console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
+    }
+    setTimeout(function () { this.startScreen() }.bind(this), 2000) /// ////////////////// clear???
   }
 }
 
