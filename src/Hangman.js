@@ -38,7 +38,7 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (Quit application) - clears terminal
     if (index === 1) {
-      clear()
+      this.terminateApp('startScreen')
     }
   }
 
@@ -101,14 +101,41 @@ function Hangman () {
 
     // GAME MENU OPTION 2 SELECTED (Quit Game) - player is presented with welcome screen
     if (index === 1) {
-      localStorage.removeItem('currentGameWord')
-      this.startScreen()
+      if (readlineSync.keyInYN('Are you sure you want to quit this game?')) {
+        // 'Y' key was pressed.
+        localStorage.removeItem('currentGameWord')
+        this.startScreen()
+      } else {
+        // Another key was pressed - return to current game
+        this.playGame()
+      }
     }
 
     // GAME MENU OPTION 3 SELECTED (Quit App) - clears terminal
     if (index === 2) {
+      this.terminateApp()
+    }
+  }
+
+  /*
+  *
+  *
+  */
+  this.terminateApp = function (currentScreen) {
+    // Asks for confirmation player wants to terminate
+    if (readlineSync.keyInYN('Are you sure you want to quit Hangman?')) {
+      // if 'Y' key was pressed.
       localStorage.removeItem('currentGameWord')
       clear()
+    } else {
+      // or another key was pressed.
+      if (currentScreen === 'startScreen') {
+        // return to start screen
+        this.startScreen()
+      } else {
+        // return to game screen
+        this.playGame()
+      }
     }
   }
 
