@@ -29,8 +29,10 @@ function updateWord (wordObject, guessedLetter) {
       }
     }
   } else {
-    parsedWordObject.remainingTries--
-    console.log('bad guess')
+    // Don't lower remaining lives if there's no guessedLetter argument
+    if (guessedLetter !== undefined) {
+      parsedWordObject.remainingTries--
+    } /// /////////////////////////////////////////////////// should message be updated here?
   }
 
   /*
@@ -41,10 +43,10 @@ function updateWord (wordObject, guessedLetter) {
   }
 */
 
-  // creates a string from the array, with a space as as delimeter
+  // creates a string from the array, with a space as delimeter
   parsedWordObject.progressWord = changingWord.join(' ')
 
-  console.log(`### wordUpdater is returning stringified: ${JSON.stringify(parsedWordObject)}`)
+  // console.log(`### wordUpdater is returning stringified: ${JSON.stringify(parsedWordObject)}`)
   return parsedWordObject
 }
 
