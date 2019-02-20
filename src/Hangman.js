@@ -3,8 +3,12 @@ const clear = require('clear')
 const readlineSync = require('readline-sync')
 
 const imageGenerator = require('./imageGenerator')
-const wordBoard = require('./wordBoard')
+const wordGenerator = require('./wordGenerator')
+const wordUpdater = require('./wordUpdater')
 const messageGenerator = require('./messageGenerator')
+
+const LocalStorage = require('node-localstorage').LocalStorage
+const localStorage = new LocalStorage('./localstorage')
 
 function Hangman () {
   this.startScreen = function () {
@@ -30,9 +34,23 @@ function Hangman () {
 
   this.playGame = function (guessedLetter) {
     clear()
+
+    // if no word exists - get a new word
+    if (!localStorage.getItem('currentGameWord')) {
+      let newWord = wordGenerator.getNewWord()
+      let wordObject = { secretWord: newWord, progressWord: '', remainingTries: 8 }
+      localStorage.setItem('currentGameWord', JSON.stringify(wordObject))
+    }
+
+    // if a word exists - get it updated
+
     console.log(imageGenerator.getNewImage('banner'))
     console.log(imageGenerator.getNewImage('hangman-image'))
-    console.log(wordBoard.updateBoard(guessedLetter, 2))
+
+    let parsedWordObject = wordUpdater.updateWord(localStorage.getItem('currentGameWord'))
+    console.log(`SECRET WORD: ${parsedWordObject.progressWord}`)
+    console.log(parsedWordObject.remainingTries)
+
     console.log(messageGenerator.newMessage('new-game'))
     console.log('MENU')
 
