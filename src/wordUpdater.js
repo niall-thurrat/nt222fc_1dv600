@@ -1,4 +1,11 @@
 
+/**
+ *
+ *
+ * @param {*} wordObject ////////////////// outline the details of this object
+ * @param {*} guessedLetter
+ * @returns
+ */
 function updateWord (wordObject, guessedLetter) {
   let parsedWordObject = JSON.parse(wordObject)
   let secretWord = parsedWordObject.secretWord
@@ -35,18 +42,9 @@ function updateWord (wordObject, guessedLetter) {
     } /// /////////////////////////////////////////////////// should message be updated here?
   }
 
-  /*
-  if (progressWord.indexOf('-') === -1) { // if there are no dashes left
-    console.log('player wins game')
-  } else if (guessesLeft <= 0) {
-    console.log('player loses game')
-  }
-*/
-
   // creates a string from the array, with a space as delimeter
   parsedWordObject.progressWord = changingWord.join(' ')
 
-  // console.log(`### wordUpdater is returning stringified: ${JSON.stringify(parsedWordObject)}`)
   return parsedWordObject
 }
 

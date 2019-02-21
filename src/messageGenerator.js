@@ -1,5 +1,11 @@
 
-function newMessage (messageName) {
+/**
+ *
+ *
+ * @param {*} messageName
+ * @returns
+ */
+function getNewMessage (messageName) {
   if (messageName === 'welcome') {
     return '\nWelcome to Hangman the world\'s greatest game!!! :)\n'
   }
@@ -32,4 +38,4 @@ function newMessage (messageName) {
   }
 }
 
-module.exports.newMessage = newMessage
+module.exports.getNewMessage = getNewMessage

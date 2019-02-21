@@ -4,4 +4,4 @@ const Hangman = game.Hangman
 
 const hangman = new Hangman()
 
-hangman.startScreen()
+hangman.showMainMenu()

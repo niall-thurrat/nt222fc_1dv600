@@ -1,4 +1,10 @@
 
+/**
+ *
+ *
+ * @param {*} imageName
+ * @returns
+ */
 function getNewImage (imageName) {
   if (imageName === 'banner') {
     return '\n###   HANGMAN   ###\n'

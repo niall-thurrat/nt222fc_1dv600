@@ -1,4 +1,9 @@
 
+/**
+ *
+ *
+ * @returns
+ */
 function getNewWord () {
   let wordArary = ['copper', 'method', 'tactic', 'rhythm', 'retain',
     'cattle', 'instal', 'animal', 'viable', 'survey']

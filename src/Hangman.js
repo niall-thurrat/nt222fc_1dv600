@@ -2,13 +2,13 @@
 const clear = require('clear')
 const readlineSync = require('readline-sync')
 
+const LocalStorage = require('node-localstorage').LocalStorage
+const localStorage = new LocalStorage('./localstorage')
+
 const imageGenerator = require('./imageGenerator')
 const wordGenerator = require('./wordGenerator')
 const wordUpdater = require('./wordUpdater')
 const messageGenerator = require('./messageGenerator')
-
-const LocalStorage = require('node-localstorage').LocalStorage
-const localStorage = new LocalStorage('./localstorage')
 
 /**
 *
@@ -21,10 +21,10 @@ function Hangman () {
   *
   *
   */
-  this.startScreen = function () {
+  this.showMainMenu = function () {
     clear()
     console.log(imageGenerator.getNewImage('banner'))
-    console.log(messageGenerator.newMessage('welcome'))
+    console.log(messageGenerator.getNewMessage('welcome'))
     console.log('MENU')
 
     const mainOptions = ['Play game', 'Quit application']
@@ -38,7 +38,7 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (Quit application) - clears terminal
     if (index === 1) {
-      this.terminateApp('startScreen')
+      this.terminateApp('mainMenu')
     }
   }
 
@@ -82,7 +82,7 @@ function Hangman () {
     // print game details to termainal
     console.log(`SECRET WORD: ${this.parsedWordObject.progressWord}`)
     console.log(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`)
-    // console.log(messageGenerator.newMessage('game-message-' + this.parsedWordObject.remainingTries))
+    // console.log(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries))
 
     // print menu title and options to terminal
     console.log('\nMENU')
@@ -104,7 +104,7 @@ function Hangman () {
       if (readlineSync.keyInYN('Are you sure you want to quit this game?')) {
         // 'Y' key was pressed.
         localStorage.removeItem('currentGameWord')
-        this.startScreen()
+        this.showMainMenu()
       } else {
         // Another key was pressed - return to current game
         this.playGame()
@@ -129,9 +129,9 @@ function Hangman () {
       clear()
     } else {
       // or another key was pressed.
-      if (currentScreen === 'startScreen') {
+      if (currentScreen === 'mainMenu') {
         // return to start screen
-        this.startScreen()
+        this.showMainMenu()
       } else {
         // return to game screen
         this.playGame()
@@ -151,7 +151,7 @@ function Hangman () {
     } else {
       console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
     }
-    setTimeout(function () { this.startScreen() }.bind(this), 2000) /// ////////////////// clear???
+    setTimeout(function () { this.showMainMenu() }.bind(this), 2000) /// ////////////////// clear???
   }
 }
 
