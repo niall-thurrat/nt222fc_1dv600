@@ -16,7 +16,7 @@ const messageGenerator = require('./messageGenerator')
 */
 function Hangman () {
   this.parsedWordObject = {}
-  this.startingTries = 2
+  this.startingTries = 8
   /*
   *
   *
@@ -27,6 +27,7 @@ function Hangman () {
     console.log(messageGenerator.getNewMessage('welcome'))
     console.log('MENU')
 
+    // menu items
     const mainOptions = ['Play game', 'Quit application']
 
     let index = readlineSync.keyInSelect(mainOptions, 'What do you want to do?', { cancel: false })
