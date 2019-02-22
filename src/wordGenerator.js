@@ -1,8 +1,8 @@
 
 /**
+ * shuffles an array of nouns
  *
- *
- * @returns
+ * @returns string of a 6 letter noun
  */
 function getNewWord () {
   let wordArary = ['copper', 'method', 'tactic', 'rhythm', 'retain',

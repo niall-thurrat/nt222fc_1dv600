@@ -1,10 +1,13 @@
 
 /**
+ * Uses guessedLetter to update parsedWordObject
  *
+ * @param {string} wordObject - a JSON string which can be parsed to form an object
+ * wordObject argument should have 3 properties: secretWord, progressWord and remainingTries
+ * wordObject example: {"secretWord":"tactic","progressWord":"t - - t - -","remainingTries":8}
  *
- * @param {*} wordObject ////////////////// outline the details of this object
- * @param {*} guessedLetter
- * @returns
+ * @param {string} guessedLetter - used to update progressWord property
+ * @returns object
  */
 function updateWord (wordObject, guessedLetter) {
   let parsedWordObject = JSON.parse(wordObject)

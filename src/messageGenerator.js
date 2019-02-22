@@ -1,9 +1,9 @@
 
 /**
+ * generates messages for various stages of hangman game
  *
- *
- * @param {*} messageName
- * @returns
+ * @param {string} messageName identifies which message to return
+ * @returns string
  */
 function getNewMessage (messageName) {
   if (messageName === 'welcome') {

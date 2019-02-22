@@ -10,7 +10,7 @@ HOW TO START GAME
 
 To play this game you must:
 
-- Have:
+- Have installed:
     node.js
     npm
     IDE
@@ -18,5 +18,6 @@ To play this game you must:
 - download repo to your computer
 - open in your favourite IDE ( I recommend visual studio code!)
 - open a terminal
-- type 'npm intall' to get the app dependencies
-- type 'npm start' to begin playing
+- run 'npm intall' to get the app dependencies
+- run 'npm start' to open the main menu
+- enjoy!

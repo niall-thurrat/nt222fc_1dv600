@@ -11,14 +11,15 @@ const wordUpdater = require('./wordUpdater')
 const messageGenerator = require('./messageGenerator')
 
 /**
-*
+* A Hangman class which can be used to create instances of a hangman type object
 *
 */
 function Hangman () {
   this.parsedWordObject = {}
   this.startingTries = 8
+
   /*
-  *
+  * logs the main menu screen to the terminal
   *
   */
   this.showMainMenu = function () {
@@ -29,7 +30,6 @@ function Hangman () {
 
     // menu items
     const mainOptions = ['Play game', 'Quit application']
-
     let index = readlineSync.keyInSelect(mainOptions, 'What do you want to do?', { cancel: false })
 
     // MAIN MENU OPTION 1 SELECTED (Play Game) - player is presented with the game screen
@@ -44,7 +44,9 @@ function Hangman () {
   }
 
   /*
+  * logs the play game screen (inc game menu) to the terminal
   *
+  * @param {string} guessedLetter - a letter entered as a parameter of a terminal command
   *
   */
   this.playGame = function (guessedLetter) {
@@ -119,7 +121,9 @@ function Hangman () {
   }
 
   /*
+  * removes the game from the terminal and deletes the local storage word
   *
+  * @param {string} currentScreen - identifies wither the main menu or game screen
   *
   */
   this.terminateApp = function (currentScreen) {
@@ -141,7 +145,9 @@ function Hangman () {
   }
 
   /*
+  * generates a final message to gamer before returning to main menu
   *
+  * @param {string} result - identifies if gamer is loser or winner
   *
   */
   this.gameCompleted = function (result) {
@@ -152,7 +158,7 @@ function Hangman () {
     } else {
       console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
     }
-    setTimeout(function () { this.showMainMenu() }.bind(this), 2000) /// ////////////////// clear???
+    setTimeout(function () { this.showMainMenu() }.bind(this), 3000) /// ////////////////// clear???
   }
 }
 
