@@ -123,7 +123,7 @@ function Hangman () {
   /*
   * removes the game from the terminal and deletes the local storage word
   *
-  * @param {string} currentScreen - identifies wither the main menu or game screen
+  * @param {string} currentScreen - identifies either the main menu or game screen
   *
   */
   this.terminateApp = function (currentScreen) {
