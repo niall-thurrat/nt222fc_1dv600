@@ -15,7 +15,7 @@ To play this game you must:
     npm
     IDE
 
-- download repo to your computer
+- download github repo to your computer (visit https://github.com/niall-thurrat/nt222fc_1dv600.git)
 - open in your favourite IDE ( I recommend visual studio code!)
 - open a terminal
 - run 'npm intall' to get the app dependencies

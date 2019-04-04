@@ -6,7 +6,7 @@
  * @version 1.1
  */
 
-const game = require('./src/Hangman')
+const game = require('./Hangman')
 const Hangman = game.Hangman
 
 const hangman = new Hangman()
