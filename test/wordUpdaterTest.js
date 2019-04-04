@@ -3,19 +3,23 @@ const assert = require('chai').assert
 const wordUpdater = require('../src/wordUpdater')
 
 describe('wordUpdater', function () {
-  /*
-  it('should respond with an object with updated progressWord property', function () {
-    let wordObject = '{"secretWord":"instal","progressWord":"","remainingTries":8}'
-    // let guessedLetter = 'a'
+  it('should update progressWord property with correct guessedLetter', function () {
+    let wordObject = '{"secretWord":"tactic","progressWord":"t - - t - -","remainingTries":8}'
+    let guessedLetter = 'a'
+    let sut = wordUpdater.updateWord(wordObject, guessedLetter)
 
-    let expectedObject =
-    { secretWord: 'instal',
-      progressWord: '- - - - - -',
-      remainingTries: 8 }
+    let expectedObject = { secretWord: 'tactic', progressWord: 't a - t - -', remainingTries: 8 }
 
-    let sut = wordUpdater.updateWord(wordObject)
-    console.log(sut)
-    console.log(expectedObject)
-    assert.equal(sut, expectedObject)
-  }) */
+    assert.deepEqual(sut, expectedObject)
+  })
+
+  it('should reduce remainingTries property with wrong guessedLetter', function () {
+    let wordObject = '{"secretWord":"tactic","progressWord":"t - - t - -","remainingTries":8}'
+    let guessedLetter = 'x'
+    let sut = wordUpdater.updateWord(wordObject, guessedLetter)
+
+    let expectedObject = { secretWord: 'tactic', progressWord: 't - - t - -', remainingTries: 7 }
+
+    assert.deepEqual(sut, expectedObject)
+  })
 })

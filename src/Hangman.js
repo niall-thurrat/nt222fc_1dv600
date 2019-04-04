@@ -24,7 +24,7 @@ function Hangman () {
   */
   this.showMainMenu = function () {
     clear()
-    console.log(imageGenerator.getNewImage('bannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbanner'))
+    console.log(imageGenerator.getNewImage('banner'))
     console.log(messageGenerator.getNewMessage('welcome'))
     console.log('MENU')
 
