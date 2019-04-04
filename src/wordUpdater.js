@@ -13,7 +13,8 @@ function updateWord (wordObject, guessedLetter) {
   let parsedWordObject = JSON.parse(wordObject)
   let secretWord = parsedWordObject.secretWord
 
-  console.log(`SECRET WORD REVEALED FOR DEV TESTING: ${secretWord}`)
+  console.log(wordObject)
+  // console.log(`SECRET WORD REVEALED FOR DEV TESTING: ${secretWord}`)
 
   let changingWord = []
 
@@ -48,6 +49,7 @@ function updateWord (wordObject, guessedLetter) {
   // creates a string from the array, with a space as delimeter
   parsedWordObject.progressWord = changingWord.join(' ')
 
+  console.log(parsedWordObject)
   return parsedWordObject
 }
 

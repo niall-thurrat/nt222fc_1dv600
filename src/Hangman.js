@@ -24,7 +24,7 @@ function Hangman () {
   */
   this.showMainMenu = function () {
     clear()
-    console.log(imageGenerator.getNewImage('banner'))
+    console.log(imageGenerator.getNewImage('bannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbannerbanner'))
     console.log(messageGenerator.getNewMessage('welcome'))
     console.log('MENU')
 
@@ -127,7 +127,7 @@ function Hangman () {
   *
   */
   this.terminateApp = function (currentScreen) {
-    // Asks for confirmation player wants to terminate
+    // Asks for confirmation that player wants to terminate
     if (readlineSync.keyInYN('Are you sure you want to quit Hangman?')) {
       // if 'Y' key was pressed.
       localStorage.removeItem('currentGameWord')
