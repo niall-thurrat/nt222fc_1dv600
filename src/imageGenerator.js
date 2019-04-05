@@ -32,7 +32,7 @@ function getNewImage (imageName) {
 
 function failTestExample (imageName) {
   if (imageName === 'test') {
-    // return 'testy test mc test face'
+  //  return 'testy test mc test face'
   } else { throw new Error('parameter not recognised') }
 }
 
