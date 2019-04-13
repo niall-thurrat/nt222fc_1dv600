@@ -10,28 +10,28 @@ function getNewMessage (messageName) {
     return '\nWelcome to Hangman the world\'s greatest game!!! :)\n'
   }
   if (messageName === 'game-message-8') {
-    return '\nMESSAGE: You can make 7 wrong guesses, so be careful. We don\'t want this guy to swing!!!\n'
+    return '\nYou can make 7 wrong guesses, so be careful. We don\'t want this guy to swing!!!\n'
   }
   if (messageName === 'game-message-7') {
-    return '\nMESSAGE: You have 6 wrong guesses left.\n'
+    return '\nYou\'re shit out of luck. Guess again!\n'
   }
   if (messageName === 'game-message-6') {
-    return '\nMESSAGE: You have 5 wrong guesses left.\n'
+    return '\nOh oh! another wrong guess\n'
   }
   if (messageName === 'game-message-5') {
-    return '\nMESSAGE: You have 4 wrong guesses left.\n'
+    return '\nDon\'t panic, you\'ve 5 wrong guesses left\n'
   }
   if (messageName === 'game-message-4') {
-    return '\nMESSAGE: You have 3 wrong guesses left.\n'
+    return '\nPANIC! You\'ve only 4 wrong guesses left!!\n'
   }
   if (messageName === 'game-message-3') {
-    return '\nMESSAGE: You have 2 wrong guesses left.\n'
+    return '\nYou need to guess real care now! 3 wrong tries left\n'
   }
   if (messageName === 'game-message-2') {
-    return '\nMESSAGE: You have 1 wrong guesses left.\n'
+    return '\n2 wrong guesses left. Good luck. You\'ll need it!!!\n'
   }
   if (messageName === 'game-message-1') {
-    return '\nMESSAGE: Oh no!!! One more bad guess and you\'re gonna hang!!!!\n'
+    return '\nOh no!!! One more bad guess and you\'re gonna hang!!!!\n'
   }
   if (messageName === 'game-message-0') {
     return '\nMESSAGE: Game over boss\n'

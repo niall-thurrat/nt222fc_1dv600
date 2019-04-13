@@ -6,7 +6,10 @@
  */
 function getNewWord () {
   let wordArary = ['copper', 'method', 'tactic', 'rhythm', 'retain',
-    'cattle', 'instal', 'animal', 'viable', 'survey']
+    'cattle', 'instal', 'animal', 'viable', 'survey', 'sugar', 'power',
+    'cabin', 'night', 'tiger', 'cable', 'attic', 'sport', 'uncle', 'youth',
+    'currency', 'guidance', 'industry', 'accident', 'stranger', 'assumption',
+    'enthusiasm', 'foundation', 'friendship', 'psychology']
 
   for (var i = wordArary.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1))

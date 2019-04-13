@@ -7,26 +7,96 @@
  *
  */
 function getNewImage (imageName) {
-  if (imageName === 'banner') {
-    return '\n###   HANGMAN   ###\n'
-  } else if (imageName === 'hangman-image-8') {
-    return 'Hangman Frame: BASE IMAGE\n'
+  if (imageName === 'hangman-image-8') {
+    return '    ##========\\ \n' +
+           '    ||\n' +
+           '    ||\n' +
+           '    ||\n' +
+           '    ||\n' +
+           '    ||\n' +
+           '    ||\n' +
+           '    ||\n' +
+           '#####################\n'
   } else if (imageName === 'hangman-image-7') {
-    return 'Hangman Frame: BASE IMAGE + 1\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-6') {
-    return 'Hangman Frame: BASE IMAGE + 2\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-5') {
-    return 'Hangman Frame: BASE IMAGE + 3\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||      |\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-4') {
-    return 'Hangman Frame: BASE IMAGE + 4\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||      |\n' +
+    '    ||      |\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-3') {
-    return 'Hangman Frame: BASE IMAGE + 5\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||   >--|\n' +
+    '    ||      |\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-2') {
-    return 'Hangman Frame: BASE IMAGE + 6\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||   >--|--<\n' +
+    '    ||      |\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-1') {
-    return 'Hangman Frame: BASE IMAGE + 7\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||   >--|--<\n' +
+    '    ||      |\n' +
+    '    ||     /\n' +
+    '    ||    /\n' +
+    '    ||\n' +
+    '#####################\n'
   } else if (imageName === 'hangman-image-0') {
-    return 'Hangman Frame: COMPLETE IMAGE\n'
+    return '    ##========\\ \n' +
+    '    ||      |\n' +
+    '    ||      0\n' +
+    '    ||   >--|--<\n' +
+    '    ||      |\n' +
+    '    ||     / \\ \n' +
+    '    ||    /   \\ \n' +
+    '    ||\n' +
+    '#####################\n'
   } else { throw new Error('parameter not recognised') }
 }
 

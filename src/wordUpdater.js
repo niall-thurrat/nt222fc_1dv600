@@ -13,7 +13,7 @@ function updateWord (wordObject, guessedLetter) {
   let parsedWordObject = JSON.parse(wordObject)
   let secretWord = parsedWordObject.secretWord
 
-  // console.log(`SECRET WORD REVEALED FOR DEV TESTING: ${secretWord}`)
+  console.log(`SECRET WORD REVEALED FOR DEV TESTING: ${secretWord}`)
 
   let changingWord = []
 

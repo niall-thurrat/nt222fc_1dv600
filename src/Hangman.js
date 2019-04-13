@@ -1,6 +1,8 @@
 
 const clear = require('clear')
 const readlineSync = require('readline-sync')
+const CFonts = require('cfonts')
+const chalk = require('chalk')
 
 const LocalStorage = require('node-localstorage').LocalStorage
 const localStorage = new LocalStorage('./localstorage')
@@ -22,12 +24,29 @@ function Hangman () {
   * logs the main menu screen to the terminal
   *
   */
-  this.showMainMenu = function () {
+  this.displayWelcomeScreen = function () {
     clear()
-    console.log(imageGenerator.getNewImage('banner'))
-    console.log(messageGenerator.getNewMessage('welcome'))
-    console.log('MENU')
 
+    // displays the game title banner
+    CFonts.say('Hangman', {
+      font: 'block',
+      colors: ['cyanBright', 'red'],
+      space: false
+    })
+
+    // displays game message
+    console.log(chalk.redBright(messageGenerator.getNewMessage('welcome')))
+
+    // displays main menu
+    console.log('MAIN MENU')
+    this.createMainMenu()
+  }
+
+  /*
+  * creates the main menu
+  *
+  */
+  this.createMainMenu = function () {
     // menu items
     const mainOptions = ['Play game', 'Quit application']
     let index = readlineSync.keyInSelect(mainOptions, 'What do you want to do?', { cancel: false })
@@ -63,6 +82,9 @@ function Hangman () {
     // wordUpdater returns an updated word object
     this.parsedWordObject = wordUpdater.updateWord(localStorage.getItem('currentGameWord'), guessedLetter)
 
+    // store updated word object as a string in localstorage
+    localStorage.setItem('currentGameWord', JSON.stringify(this.parsedWordObject))
+
     // IF GAME IS LOST - no remaining tries
     if (this.parsedWordObject.remainingTries === 0) {
       this.gameCompleted('lost')
@@ -75,16 +97,22 @@ function Hangman () {
       return
     }
 
-    // print title banner and hangman image
-    console.log(imageGenerator.getNewImage('banner'))
-    console.log(imageGenerator.getNewImage('hangman-image-' + this.parsedWordObject.remainingTries))
+    // displays the game title banner
+    CFonts.say('Hangman', {
+      font: 'block',
+      colors: ['cyanBright', 'red'],
+      space: false
+    })
 
-    // store updated word object as a string in localstorage
-    localStorage.setItem('currentGameWord', JSON.stringify(this.parsedWordObject))
+    // display game message
+    console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries)))
+
+    // displays hangman image
+    console.log(chalk.cyan(imageGenerator.getNewImage('hangman-image-' + this.parsedWordObject.remainingTries)))
 
     // print game details to termainal
-    console.log(`SECRET WORD: ${this.parsedWordObject.progressWord}`)
-    console.log(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`)
+    console.log(chalk.redBright(`SECRET WORD: ${this.parsedWordObject.progressWord}`))
+    console.log(chalk.redBright(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`))
     // console.log(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries))
 
     // print menu title and options to terminal
@@ -107,7 +135,7 @@ function Hangman () {
       if (readlineSync.keyInYN('Are you sure you want to quit this game?')) {
         // 'Y' key was pressed.
         localStorage.removeItem('currentGameWord')
-        this.showMainMenu()
+        this.displayWelcomeScreen()
       } else {
         // Another key was pressed - return to current game
         this.playGame()
@@ -135,8 +163,7 @@ function Hangman () {
     } else {
       // or another key was pressed.
       if (currentScreen === 'mainMenu') {
-        // return to start screen
-        this.showMainMenu()
+        this.displayWelcomeScreen()
       } else {
         // return to game screen
         this.playGame()
@@ -158,7 +185,7 @@ function Hangman () {
     } else {
       console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
     }
-    setTimeout(function () { this.showMainMenu() }.bind(this), 3000) /// ////////////////// clear???
+    setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 3000) /// ////////////////// clear???
   }
 }
 
