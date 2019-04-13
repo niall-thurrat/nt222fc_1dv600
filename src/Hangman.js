@@ -17,7 +17,7 @@ const messageGenerator = require('./messageGenerator')
 *
 */
 function Hangman () {
-  this.parsedWordObject = {}
+  this.sessionObject = {}
   this.startingTries = 8
 
   /*
@@ -53,7 +53,7 @@ function Hangman () {
 
     // MAIN MENU OPTION 1 SELECTED (Play Game) - player is presented with the game screen
     if (index === 0) {
-      this.playGame()
+      this.updateGame()
     }
 
     // MAIN MENU OPTION 2 SELECTED (Quit application) - clears terminal
@@ -63,36 +63,45 @@ function Hangman () {
   }
 
   /*
-  * logs the play game screen (inc game menu) to the terminal
+  * sets up new games and manages/uses sessionObject to control game changes after guessed letters
   *
-  * @param {string} guessedLetter - a letter entered as a parameter of a terminal command
+  * @param {string} guessedLetter - a letter entered as an argument from a terminal command
   *
   */
-  this.playGame = function (guessedLetter) {
+  this.updateGame = function (guessedLetter) {
     clear()
 
-    // IF NEW GAME - no word exists yet - get a new word and save it in localstorage
-    if (!localStorage.getItem('currentGameWord')) {
+    // IF NEW GAME (no sessionObject found in local-storage)
+    if (!localStorage.getItem('sessionInfo')) {
+      // get a new word
       let newWord = wordGenerator.getNewWord()
-      let wordObject = { secretWord: newWord, progressWord: '', remainingTries: this.startingTries }
-      localStorage.setItem('currentGameWord', JSON.stringify(wordObject))
+
+      // create new sessionObject to control game data persistence
+      let sessionObject = {
+        secretWord: newWord,
+        progressWord: '',
+        remainingTries: this.startingTries
+      }
+
+      // store new sessionObject in local-storage
+      localStorage.setItem('sessionInfo', JSON.stringify(sessionObject))
     }
 
-    // send the secret word and guessed letter (if any) to wordUpdater
+    // send the secret word and guessed letter (if any) to wordUpdater in the sessionObject
     // wordUpdater returns an updated word object
-    this.parsedWordObject = wordUpdater.updateWord(localStorage.getItem('currentGameWord'), guessedLetter)
+    this.sessionObject = wordUpdater.updateWord(JSON.parse(localStorage.getItem('sessionInfo')), guessedLetter)
 
     // store updated word object as a string in localstorage
-    localStorage.setItem('currentGameWord', JSON.stringify(this.parsedWordObject))
+    localStorage.setItem('sessionInfo', JSON.stringify(this.sessionObject))
 
     // IF GAME IS LOST - no remaining tries
-    if (this.parsedWordObject.remainingTries === 0) {
+    if (this.sessionObject.remainingTries === 0) {
       this.gameCompleted('lost')
       return
     }
 
     // IF GAME IS WON - no remaining letters to guess in secret word
-    if (this.parsedWordObject.progressWord.replace(/\s+/g, '') === this.parsedWordObject.secretWord) {
+    if (this.sessionObject.progressWord.replace(/\s+/g, '') === this.sessionObject.secretWord) {
       this.gameCompleted('won')
       return
     }
@@ -114,17 +123,17 @@ function Hangman () {
       space: false
     })
 
-    console.log(`SECRET WORD REVEALED: ${this.parsedWordObject.secretWord}`)
+    console.log(`SECRET WORD REVEALED: ${this.sessionObject.secretWord}`)
 
     // display game message
-    console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries)))
+    console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' + this.sessionObject.remainingTries)))
 
     // displays hangman image
-    console.log(chalk.cyan(imageGenerator.getNewImage('hangman-image-' + this.parsedWordObject.remainingTries)))
+    console.log(chalk.cyan(imageGenerator.getNewImage('hangman-image-' + this.sessionObject.remainingTries)))
 
     // print game details to termainal
-    console.log(chalk.redBright(`SECRET WORD: ${this.parsedWordObject.progressWord}`))
-    console.log(chalk.redBright(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`))
+    console.log(chalk.redBright(`SECRET WORD: ${this.sessionObject.progressWord}`))
+    console.log(chalk.redBright(`REMAING TRIES: ${this.sessionObject.remainingTries}`))
 
     // displays game menu
     console.log('\nGAME MENU')
@@ -145,10 +154,10 @@ function Hangman () {
 
       // if a single letter is guessed
       if (guessedLetter.length === 1) {
-        this.playGame(guessedLetter)
+        this.updateGame(guessedLetter)
       } else {
         // if letter guessed > 1 or 0
-        this.playGame()
+        this.updateGame()
       }
     }
 
@@ -156,11 +165,11 @@ function Hangman () {
     if (index === 1) {
       if (readlineSync.keyInYN('Are you sure you want to quit this game?')) {
         // 'Y' key was pressed.
-        localStorage.removeItem('currentGameWord')
+        localStorage.removeItem('sessionInfo')
         this.displayWelcomeScreen()
       } else {
         // Another key was pressed - return to current game
-        this.playGame()
+        this.updateGame()
       }
     }
 
@@ -180,7 +189,7 @@ function Hangman () {
     // Asks for confirmation that player wants to terminate
     if (readlineSync.keyInYN('Are you sure you want to quit Hangman?')) {
       // if 'Y' key was pressed.
-      localStorage.removeItem('currentGameWord')
+      localStorage.removeItem('sessionInfo')
       clear()
     } else {
       // or another key was pressed.
@@ -188,7 +197,7 @@ function Hangman () {
         this.displayWelcomeScreen()
       } else {
         // return to game screen
-        this.playGame()
+        this.updateGame()
       }
     }
   }
@@ -200,14 +209,14 @@ function Hangman () {
   *
   */
   this.gameCompleted = function (result) {
-    localStorage.removeItem('currentGameWord')
+    localStorage.removeItem('sessionInfo')
     clear()
     if (result === 'lost') {
       console.log('\n\n    YOU LOSE!!!\n\n\n\n\n\n\n')
     } else {
       console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
     }
-    setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 3000) /// ////////////////// clear???
+    setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 3000)
   }
 }
 

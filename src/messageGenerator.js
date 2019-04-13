@@ -19,19 +19,19 @@ function getNewMessage (messageName) {
     return '\nOh oh! another wrong guess\n'
   }
   if (messageName === 'game-message-5') {
-    return '\nDon\'t panic, you\'ve 5 wrong guesses left\n'
+    return '\nDon\'t panic, you\'ve 4 wrong guesses left\n'
   }
   if (messageName === 'game-message-4') {
-    return '\nPANIC! You\'ve only 4 wrong guesses left!!\n'
+    return '\nPANIC! You\'ve only 3 wrong guesses left!!\n'
   }
   if (messageName === 'game-message-3') {
-    return '\nYou need to guess real care now! 3 wrong tries left\n'
+    return '\nYou need to guess real care now! 2 wrong tries left\n'
   }
   if (messageName === 'game-message-2') {
-    return '\n2 wrong guesses left. Good luck. You\'ll need it!!!\n'
+    return '\nYou\'re allowed 1 more wrong guess. Good luck. You\'ll need it!!!\n'
   }
   if (messageName === 'game-message-1') {
-    return '\nOh no!!! One more bad guess and you\'re gonna hang!!!!\n'
+    return '\nOh no!!! No more bad guesses - otherwise you\'re gonna hang!!!!\n'
   }
   if (messageName === 'game-message-0') {
     return '\nMESSAGE: Game over boss\n'
