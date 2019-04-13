@@ -97,12 +97,24 @@ function Hangman () {
       return
     }
 
+    this.displayGameScreen()
+  }
+
+  /*
+  * logs the welcome screen with main menu to the terminal
+  *
+  */
+  this.displayGameScreen = function () {
+    clear()
+
     // displays the game title banner
     CFonts.say('Hangman', {
       font: 'block',
       colors: ['cyanBright', 'red'],
       space: false
     })
+
+    console.log(`SECRET WORD REVEALED: ${this.parsedWordObject.secretWord}`)
 
     // display game message
     console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries)))
@@ -113,10 +125,17 @@ function Hangman () {
     // print game details to termainal
     console.log(chalk.redBright(`SECRET WORD: ${this.parsedWordObject.progressWord}`))
     console.log(chalk.redBright(`REMAING TRIES: ${this.parsedWordObject.remainingTries}`))
-    // console.log(messageGenerator.getNewMessage('game-message-' + this.parsedWordObject.remainingTries))
 
-    // print menu title and options to terminal
-    console.log('\nMENU')
+    // displays game menu
+    console.log('\nGAME MENU')
+    this.createGameMenu()
+  }
+
+  /*
+  * creates the game menu
+  *
+  */
+  this.createGameMenu = function () {
     const gameOptions = ['Guess a letter', 'Quit game', 'Quit Application']
     let index = readlineSync.keyInSelect(gameOptions, 'What do you want to do?', { cancel: false })
 
@@ -127,7 +146,10 @@ function Hangman () {
       // if a single letter is guessed
       if (guessedLetter.length === 1) {
         this.playGame(guessedLetter)
-      } else { this.playGame() }
+      } else {
+        // if letter guessed > 1 or 0
+        this.playGame()
+      }
     }
 
     // GAME MENU OPTION 2 SELECTED (Quit Game) - player is presented with welcome screen
@@ -146,14 +168,6 @@ function Hangman () {
     if (index === 2) {
       this.terminateApp()
     }
-  }
-
-  /*
-  * creates the game menu
-  *
-  */
-  this.createGameMenu = function () {
-    // add something
   }
 
   /*
