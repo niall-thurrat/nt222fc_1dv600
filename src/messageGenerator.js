@@ -5,33 +5,33 @@
  * @param {string} messageName identifies which message to return
  * @returns string
  */
-function getNewMessage (messageName) {
+function getNewMessage (messageName, username) {
   if (messageName === 'welcome') {
-    return '\nWelcome to Hangman the world\'s greatest game!!! :)\n'
+    return `\nWelcome to Hangman the world's greatest game!!! :)\n`
   }
   if (messageName === 'game-message-8') {
-    return '\nYou can make 7 wrong guesses, so be careful. We don\'t want this guy to swing!!!\n'
+    return `\nGood luck ${username}! You can make 7 wrong guesses\n`
   }
   if (messageName === 'game-message-7') {
-    return '\nYou\'re shit out of luck. Guess again!\n'
+    return `\nBe careful ${username}. We don't want this guy to swing!!!\n`
   }
   if (messageName === 'game-message-6') {
-    return '\nOh oh! another wrong guess\n'
+    return `\nOh oh! You're shit out of luck ${username}. Guess again!\n`
   }
   if (messageName === 'game-message-5') {
-    return '\nDon\'t panic, you\'ve 4 wrong guesses left\n'
+    return `\nDon't panic ${username}, you've 4 wrong guesses left\n`
   }
   if (messageName === 'game-message-4') {
-    return '\nPANIC! You\'ve only 3 wrong guesses left!!\n'
+    return `\nPANIC! You've only 3 wrong guesses left ${username}!!\n`
   }
   if (messageName === 'game-message-3') {
-    return '\nYou need to guess real care now! 2 wrong tries left\n'
+    return `\nYou need to guess real care now! 2 wrong tries left\n`
   }
   if (messageName === 'game-message-2') {
-    return '\nYou\'re allowed 1 more wrong guess. Good luck. You\'ll need it!!!\n'
+    return `\nYou're allowed 1 more wrong guess ${username}. Good luck. You'll need it!!!\n`
   }
   if (messageName === 'game-message-1') {
-    return '\nOh no!!! No more bad guesses - otherwise you\'re gonna hang!!!!\n'
+    return `\nOh no!!! No more bad guesses ${username} - otherwise you're gonna hang!!!!\n`
   }
   if (messageName === 'game-message-0') {
     return '\nMESSAGE: Game over boss\n'

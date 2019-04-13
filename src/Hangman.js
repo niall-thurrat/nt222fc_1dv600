@@ -53,7 +53,15 @@ function Hangman () {
 
     // MAIN MENU OPTION 1 SELECTED (Play Game) - player is presented with the game screen
     if (index === 0) {
-      this.updateGame()
+      let username = readlineSync.question('Please enter a username (max 10 characters):  ')
+      // invalid username
+      if (username.length === 0 || username.length > 10) {
+        console.log(chalk.yellow('You\'ve entered an invalid username! Try again.'))
+        setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 2000)
+      } else {
+        // valid username
+        this.updateGame('', username)
+      }
     }
 
     // MAIN MENU OPTION 2 SELECTED (Quit application) - clears terminal
@@ -68,7 +76,7 @@ function Hangman () {
   * @param {string} guessedLetter - a letter entered as an argument from a terminal command
   *
   */
-  this.updateGame = function (guessedLetter) {
+  this.updateGame = function (guessedLetter, username) {
     clear()
 
     // IF NEW GAME (no sessionObject found in local-storage)
@@ -81,7 +89,8 @@ function Hangman () {
         secretWord: newWord,
         progressWord: '',
         remainingTries: this.startingTries,
-        wrongLetterList: ''
+        wrongLetterList: '',
+        username: username
       }
 
       // store new sessionObject in local-storage
@@ -127,7 +136,8 @@ function Hangman () {
     console.log(`SECRET WORD REVEALED: ${this.sessionObject.secretWord}`)
 
     // display game message
-    console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' + this.sessionObject.remainingTries)))
+    console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' +
+    this.sessionObject.remainingTries, this.sessionObject.username)))
 
     // displays hangman image
     console.log(chalk.cyan(imageGenerator.getNewImage('hangman-image-' + this.sessionObject.remainingTries)))
