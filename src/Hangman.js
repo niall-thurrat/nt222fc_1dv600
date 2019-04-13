@@ -80,7 +80,8 @@ function Hangman () {
       let sessionObject = {
         secretWord: newWord,
         progressWord: '',
-        remainingTries: this.startingTries
+        remainingTries: this.startingTries,
+        wrongLetterList: ''
       }
 
       // store new sessionObject in local-storage
@@ -134,6 +135,7 @@ function Hangman () {
     // print game details to termainal
     console.log(chalk.redBright(`SECRET WORD: ${this.sessionObject.progressWord}`))
     console.log(chalk.redBright(`REMAING TRIES: ${this.sessionObject.remainingTries}`))
+    console.log(chalk.redBright(`WRONG LETTER LIST: ${this.sessionObject.wrongLetterList}`))
 
     // displays game menu
     console.log('\nGAME MENU')

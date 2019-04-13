@@ -4,8 +4,8 @@
  *
  * @param {object} sessionObject - an object which contains game session information
  * sessionObject example: { 'secretWord: 'tactic","progressWord":"t - - t - -","remainingTries":8} ////////////////////////////////////// change
- * @param {string} guessedLetter - used to update progressWord property
- * @returns object
+ * @param {string} guessedLetter - the gamers latest letter guess
+ * @returns object - updated sessionObject
  *
  */
 function updateWord (sessionObject, guessedLetter) {
@@ -34,8 +34,9 @@ function updateWord (sessionObject, guessedLetter) {
       }
     }
   } else {
-    // Don't lower remaining lives if there's no guessedLetter argument
+    // Lower remaining lives unless there's no guessedLetter argument
     if (guessedLetter !== undefined) {
+      sessionObject.wrongLetterList += guessedLetter.toString() + '  '
       sessionObject.remainingTries--
     }
   }
