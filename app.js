@@ -6,9 +6,8 @@
  * @version 1.1
  */
 
-const game = require('./src/Hangman')
-const Hangman = game.Hangman
+const Hangman = require('./src/Hangman').Hangman
 
 const hangman = new Hangman()
 
-hangman.showMainMenu()
+hangman.displayWelcomeScreen()

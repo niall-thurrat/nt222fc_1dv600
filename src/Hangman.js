@@ -21,7 +21,7 @@ function Hangman () {
   this.startingTries = 8
 
   /*
-  * logs the main menu screen to the terminal
+  * logs the welcome screen with main menu to the terminal
   *
   */
   this.displayWelcomeScreen = function () {
@@ -146,6 +146,14 @@ function Hangman () {
     if (index === 2) {
       this.terminateApp()
     }
+  }
+
+  /*
+  * creates the game menu
+  *
+  */
+  this.createGameMenu = function () {
+    // add something
   }
 
   /*
