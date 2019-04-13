@@ -3,6 +3,7 @@ const clear = require('clear')
 const readlineSync = require('readline-sync')
 const CFonts = require('cfonts')
 const chalk = require('chalk')
+const Table = require('cli-table')
 
 const LocalStorage = require('node-localstorage').LocalStorage
 const localStorage = new LocalStorage('./localstorage')
@@ -48,12 +49,12 @@ function Hangman () {
   */
   this.createMainMenu = function () {
     // menu items
-    const mainOptions = ['Play game', 'Quit application']
+    const mainOptions = ['Play game', 'View high-score board', 'Read game instructions', 'Quit application']
     let index = readlineSync.keyInSelect(mainOptions, 'What do you want to do?', { cancel: false })
 
-    // MAIN MENU OPTION 1 SELECTED (Play Game) - player is presented with the game screen
+    // MAIN MENU OPTION 1 SELECTED (Play Game)
     if (index === 0) {
-      let username = readlineSync.question('Please enter a username (max 10 characters):  ')
+      let username = readlineSync.question(chalk.green('ENTER YOUR USERNAME (max 10 characters):  '))
       // invalid username
       if (username.length === 0 || username.length > 10) {
         console.log(chalk.yellow('You\'ve entered an invalid username! Try again.'))
@@ -64,8 +65,49 @@ function Hangman () {
       }
     }
 
-    // MAIN MENU OPTION 2 SELECTED (Quit application) - clears terminal
+    // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
+      clear()
+
+      // displays the game title banner
+      CFonts.say('Hangman', {
+        font: 'block',
+        colors: ['cyanBright', 'red'],
+        space: false
+      })
+
+      console.log('')
+
+      // displays the high-score header
+      CFonts.say('HIGH-SCORE BOARD', {
+        font: 'chrome',
+        colors: ['cyanBright', 'white', 'red'],
+        space: false
+      })
+
+      console.log('')
+
+      // instantiate table and push values to it
+      var table = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
+      table.push(
+        ['test nae', '4', '1st'],
+        ['Ftest name', '13', '2nd']
+      )
+
+      console.log(`${table.toString()}\n`) /// ///////////////////////////////////////////////////////////////// return this instead?
+
+      readlineSync.keyInPause(chalk.yellow('TO RETURN TO THE MAIN MENU...'))
+
+      this.displayWelcomeScreen()
+    }
+
+    // MAIN MENU OPTION 3 SELECTED (Read game instructions)
+    if (index === 2) {
+      // do
+    }
+
+    // MAIN MENU OPTION 4 SELECTED (Quit application)
+    if (index === 3) {
       this.terminateApp('mainMenu')
     }
   }
