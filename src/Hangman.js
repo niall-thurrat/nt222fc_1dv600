@@ -3,7 +3,6 @@ const clear = require('clear')
 const readlineSync = require('readline-sync')
 const CFonts = require('cfonts')
 const chalk = require('chalk')
-const Table = require('cli-table')
 
 const LocalStorage = require('node-localstorage').LocalStorage
 const localStorage = new LocalStorage('./localstorage')
@@ -12,6 +11,7 @@ const imageGenerator = require('./imageGenerator')
 const wordGenerator = require('./wordGenerator')
 const wordUpdater = require('./wordUpdater')
 const messageGenerator = require('./messageGenerator')
+const highScoreBoard = require('./highScoreBoard')
 
 /**
 * A Hangman class which can be used to create instances of a hangman type object
@@ -48,8 +48,13 @@ function Hangman () {
   *
   */
   this.createMainMenu = function () {
-    // menu items
-    const mainOptions = ['Play game', 'View high-score board', 'Read game instructions', 'Quit application']
+    const mainOptions = [
+      'Play game',
+      'View high-score board',
+      'Read game instructions',
+      'Quit application'
+    ]
+
     let index = readlineSync.keyInSelect(mainOptions, 'What do you want to do?', { cancel: false })
 
     // MAIN MENU OPTION 1 SELECTED (Play Game)
@@ -67,36 +72,7 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
-      clear()
-
-      // displays the game title banner
-      CFonts.say('Hangman', {
-        font: 'block',
-        colors: ['cyanBright', 'red'],
-        space: false
-      })
-
-      console.log('')
-
-      // displays the high-score header
-      CFonts.say('HIGH-SCORE BOARD', {
-        font: 'chrome',
-        colors: ['cyanBright', 'white', 'red'],
-        space: false
-      })
-
-      console.log('')
-
-      // instantiate table and push values to it
-      var table = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
-      table.push(
-        ['test nae', '4', '1st'],
-        ['Ftest name', '13', '2nd']
-      )
-
-      console.log(`${table.toString()}\n`) /// ///////////////////////////////////////////////////////////////// return this instead?
-
-      readlineSync.keyInPause(chalk.yellow('TO RETURN TO THE MAIN MENU...'))
+      highScoreBoard.displayScores()
 
       this.displayWelcomeScreen()
     }

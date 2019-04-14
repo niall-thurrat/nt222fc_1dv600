@@ -2,8 +2,8 @@
 /**
  * generates images for hangman game
  *
- * @param {string} imageName identifies which image should be returned
- * @returns string representing an image when logged on console
+ * @param {string} imageName - identifies which image should be returned
+ * @returns {string} representing an image when logged on console
  *
  */
 function getNewImage (imageName) {
