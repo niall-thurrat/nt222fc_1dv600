@@ -72,7 +72,14 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
-      highScoreBoard.displayScores()
+      let table = highScoreBoard.displayScores()
+
+      console.log(`${table.toString()}\n`)
+
+      // console.log(table[1]) useful to know for testing
+      // console.log(table[1][1])
+
+      readlineSync.keyInPause(chalk.yellow('TO RETURN TO THE MAIN MENU...'))
 
       this.displayWelcomeScreen()
     }
