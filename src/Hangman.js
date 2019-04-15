@@ -96,7 +96,7 @@ function Hangman () {
   }
 
   /*
-  * sets up new games and manages/uses sessionObject to control game changes after guessed letters
+  * sets up new games and creates/uses sessionObject to control game changes after guessed letters
   *
   * @param {string} guessedLetter - a letter entered as an argument from a terminal command
   *
@@ -122,22 +122,22 @@ function Hangman () {
       localStorage.setItem('sessionInfo', JSON.stringify(sessionObject))
     }
 
-    // send the secret word and guessed letter (if any) to wordUpdater in the sessionObject
-    // wordUpdater returns an updated word object
+    // send the sessionObject and guessed letter (if any) to wordUpdater
+    // wordUpdater returns an updated sessionObject
     this.sessionObject = wordUpdater.updateWord(JSON.parse(localStorage.getItem('sessionInfo')), guessedLetter)
 
-    // store updated word object as a string in localstorage
+    // store updated sessionObject as a string in localstorage
     localStorage.setItem('sessionInfo', JSON.stringify(this.sessionObject))
 
-    // IF GAME IS LOST - no remaining tries
+    // IF GAME IS LOST (no remaining tries left)
     if (this.sessionObject.remainingTries === 0) {
-      this.gameCompleted('lost')
+      this.gameEnds('lost')
       return
     }
 
-    // IF GAME IS WON - no remaining letters to guess in secret word
+    // IF GAME IS WON (no remaining letters to guess in secret word)
     if (this.sessionObject.progressWord.replace(/\s+/g, '') === this.sessionObject.secretWord) {
-      this.gameCompleted('won')
+      this.gameEnds('won')
       return
     }
 
@@ -245,12 +245,51 @@ function Hangman () {
   * @param {string} result - identifies if gamer is loser or winner
   *
   */
-  this.gameCompleted = function (result) {
+  this.gameEnds = function (result) {
     localStorage.removeItem('sessionInfo')
     clear()
+
+    // IF GAMER LOSES
     if (result === 'lost') {
       console.log('\n\n    YOU LOSE!!!\n\n\n\n\n\n\n')
     } else {
+      // IF GAMER WINS
+
+      let username = this.sessionObject.username
+      let gameScore = this.sessionObject.remainingTries
+      let newScore = { 'username': username, 'highScore': gameScore }
+      let scoresArray = []
+      let pastHighScores = JSON.parse(localStorage.getItem('storedHighScores'))
+
+      // IF THERE ARE NO HIGH-SCORES IN LOCAL-STORAGE YET
+      if (!localStorage.getItem('storedHighScores')) {
+        scoresArray.push(newScore)
+        localStorage.setItem('storedHighScores', JSON.stringify(scoresArray))
+      } else {
+        // ELSE IF PREVIOUS-HIGH SCORES EXIST
+        scoresArray = pastHighScores
+
+        // sorts by highScore property (highest to lowest score)
+        scoresArray = scoresArray.sort(function (a, b) { return b.highScore - a.highScore })
+
+        // IF 5 SCORES ARE ALREADY STORED
+        if (typeof scoresArray[4] === 'object') {
+          console.log('5 scores already stored running')
+          // replaces last object which has the lowest score (if newScores highScore is larger)
+          if (Number(newScore.highScore) > Number(scoresArray[4].highScore)) {
+            scoresArray.splice(4, 1, newScore)
+            console.log('RUNNING')
+          }
+        } else {
+          console.log('less than 5 scores running')
+          // IF THERE ARE LESS THAN 5 SCORES
+          scoresArray.push(newScore)
+        }
+
+        // sorts array biggest highScore first - stores in local-storage
+        scoresArray = scoresArray.sort(function (b, a) { return a.highScore - b.highScore })
+        localStorage.setItem('storedHighScores', JSON.stringify(scoresArray))
+      }
       console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
     }
     setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 3000)
