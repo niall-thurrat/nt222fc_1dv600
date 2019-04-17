@@ -72,9 +72,10 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
-      let table = highScoreBoard.displayBoard()
+      let scoresForBoard = JSON.parse(localStorage.getItem('storedHighScores'))
+      let board = highScoreBoard.displayBoard(scoresForBoard)
 
-      console.log(`${table.toString()}\n`)
+      console.log(`${board.toString()}\n`)
 
       // console.log(table[1]) useful to know for testing
       // console.log(table[1][1])

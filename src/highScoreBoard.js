@@ -53,7 +53,7 @@ function updateHighScores (username, gameScore, pastHighScores) {
  * @returns {string} representing an image when logged on console //////////////////////////////// change
  *
  */
-function displayBoard () {
+function displayBoard (scoresForBoard) {
   clear()
 
   // displays the game title banner
@@ -76,10 +76,12 @@ function displayBoard () {
 
   // instantiate table and push values to it
   let board = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
-  board.push(
-    ['test nae', '4', '1st'],
-    ['Ftest name', '13', '2nd']
-  )
+
+  for (let i = 0; i < scoresForBoard.length; i++) {
+    board.push(
+      [scoresForBoard[i].username, scoresForBoard[i].highScore, i + 1]
+    )
+  }
 
   return board
 }
