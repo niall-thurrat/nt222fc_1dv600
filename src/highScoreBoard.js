@@ -3,6 +3,49 @@ const clear = require('clear')
 const CFonts = require('cfonts')
 const Table = require('cli-table')
 
+const LocalStorage = require('node-localstorage').LocalStorage
+const localStorage = new LocalStorage('./localstorage')
+
+/**
+ * uses gameScore to check and update stored high-scores
+ *
+ * @param {string} username -
+ * @param {string} gameScore -
+ * @returns {string}
+ *
+ */
+function updateHighScores (username, gameScore, pastHighScores) {
+  let newScore = { 'username': username, 'highScore': gameScore }
+  let highScoreList = []
+
+  // IF THERE ARE NO HIGH-SCORES IN LOCAL-STORAGE YET
+  if (!localStorage.getItem('storedHighScores')) {
+    highScoreList.push(newScore)
+    return [highScoreList, 'yes']
+  } else {
+    // ELSE IF PREVIOUS-HIGH SCORES EXIST
+
+    highScoreList = pastHighScores
+
+    // IF 5 SCORES ARE ALREADY STORED
+    if (typeof highScoreList[4] === 'object') {
+      // if newScore is good enough it replaces the last array item
+      if (Number(newScore.highScore) > Number(highScoreList[4].highScore)) {
+        highScoreList.splice(4, 1, newScore)
+        highScoreList = highScoreList.sort((b, a) => { return a.highScore - b.highScore })
+        return [highScoreList, 'yes']
+      } else {
+        return [highScoreList, 'no']
+      }
+    } else {
+      // IF THERE ARE LESS THAN 5 SCORES
+      highScoreList.push(newScore)
+      highScoreList = highScoreList.sort((b, a) => { return a.highScore - b.highScore })
+      return [highScoreList, 'yes']
+    }
+  }
+}
+
 /**
  * creates the high-score board
  *
@@ -10,7 +53,7 @@ const Table = require('cli-table')
  * @returns {string} representing an image when logged on console //////////////////////////////// change
  *
  */
-function displayScores () {
+function displayBoard () {
   clear()
 
   // displays the game title banner
@@ -32,13 +75,16 @@ function displayScores () {
   console.log('')
 
   // instantiate table and push values to it
-  let table = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
-  table.push(
+  let board = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
+  board.push(
     ['test nae', '4', '1st'],
     ['Ftest name', '13', '2nd']
   )
 
-  return table
+  return board
 }
 
-module.exports.displayScores = displayScores
+module.exports = {
+  displayBoard,
+  updateHighScores
+}

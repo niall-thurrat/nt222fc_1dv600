@@ -72,7 +72,7 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
-      let table = highScoreBoard.displayScores()
+      let table = highScoreBoard.displayBoard()
 
       console.log(`${table.toString()}\n`)
 
@@ -257,40 +257,25 @@ function Hangman () {
 
       let username = this.sessionObject.username
       let gameScore = this.sessionObject.remainingTries
-      let newScore = { 'username': username, 'highScore': gameScore }
-      let scoresArray = []
-      let pastHighScores = JSON.parse(localStorage.getItem('storedHighScores'))
+      let pastHighScores = []
 
-      // IF THERE ARE NO HIGH-SCORES IN LOCAL-STORAGE YET
-      if (!localStorage.getItem('storedHighScores')) {
-        scoresArray.push(newScore)
-        localStorage.setItem('storedHighScores', JSON.stringify(scoresArray))
-      } else {
-        // ELSE IF PREVIOUS-HIGH SCORES EXIST
-        scoresArray = pastHighScores
-
-        // sorts by highScore property (highest to lowest score)
-        scoresArray = scoresArray.sort(function (a, b) { return b.highScore - a.highScore })
-
-        // IF 5 SCORES ARE ALREADY STORED
-        if (typeof scoresArray[4] === 'object') {
-          console.log('5 scores already stored running')
-          // replaces last object which has the lowest score (if newScores highScore is larger)
-          if (Number(newScore.highScore) > Number(scoresArray[4].highScore)) {
-            scoresArray.splice(4, 1, newScore)
-            console.log('RUNNING')
-          }
-        } else {
-          console.log('less than 5 scores running')
-          // IF THERE ARE LESS THAN 5 SCORES
-          scoresArray.push(newScore)
-        }
-
-        // sorts array biggest highScore first - stores in local-storage
-        scoresArray = scoresArray.sort(function (b, a) { return a.highScore - b.highScore })
-        localStorage.setItem('storedHighScores', JSON.stringify(scoresArray))
+      if (localStorage.getItem('storedHighScores')) {
+        pastHighScores = JSON.parse(localStorage.getItem('storedHighScores'))
       }
-      console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
+
+      let returnedArray = highScoreBoard.updateHighScores(username, gameScore, pastHighScores)
+      let updatedHighScores = returnedArray[0]
+      let isNewScoreGoodEnough = returnedArray[1]
+
+      localStorage.setItem('storedHighScores', JSON.stringify(updatedHighScores))
+
+      // SCORE GOOD ENOUGH FOR HIGH-SCORE BOARD
+      if (isNewScoreGoodEnough === 'yes') {
+        console.log('\n\n    YOU WIN!!!\n\n    CONGRATULATIONS YOU\'VE MADE THE HIGH-SCORE BOARD!!!\n\n\n\n\n')
+      } else {
+        // DIDN'T GET ON THE BOARD :(
+        console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')
+      }
     }
     setTimeout(function () { this.displayWelcomeScreen() }.bind(this), 3000)
   }
