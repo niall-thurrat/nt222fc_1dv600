@@ -100,13 +100,4 @@ function getNewImage (imageName) {
   } else { throw new Error('parameter not recognised') }
 }
 
-function failTestExample (imageName) {
-  if (imageName === 'test') {
-  //  return 'testy test mc test face'
-  } else { throw new Error('parameter not recognised') }
-}
-
-module.exports = {
-  getNewImage,
-  failTestExample
-}
+module.exports.getNewImage = getNewImage
