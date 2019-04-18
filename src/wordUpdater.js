@@ -3,9 +3,15 @@
  * Uses guessedLetter to update sessionObject
  *
  * @param {object} sessionObject - an object which contains game session information
- * sessionObject example: { 'secretWord: 'tactic","progressWord":"t - - t - -","remainingTries":8} ////////////////////////////////////// change
+ * EXAMPLE sessionObject {
+ *   secretWord: 'sugar',
+ *   progressWord: '- - - - -',
+ *   remainingTries: 8,
+ *   wrongLetterList: '',
+ *   username: 'tim'
+ * }
  * @param {string} guessedLetter - the gamers latest letter guess
- * @returns object - updated sessionObject
+ * @returns {object} - updated sessionObject
  *
  */
 function updateWord (sessionObject, guessedLetter) {

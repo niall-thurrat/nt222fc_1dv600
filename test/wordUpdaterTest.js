@@ -4,21 +4,46 @@ const wordUpdater = require('../src/wordUpdater')
 
 describe('wordUpdater', function () {
   it('should update progressWord property with correct guessedLetter', function () {
-    let wordObject = '{"secretWord":"tactic","progressWord":"t - - t - -","remainingTries":8}'
-    let guessedLetter = 'a'
-    let sut = wordUpdater.updateWord(wordObject, guessedLetter)
+    let sessionObject = {
+      secretWord: 'sugar',
+      progressWord: '- - - - -',
+      remainingTries: 8,
+      wrongLetterList: '',
+      username: 'tim'
+    }
+    let guessedLetter = 's'
+    let sut = wordUpdater.updateWord(sessionObject, guessedLetter)
 
-    let expectedObject = { secretWord: 'tactic', progressWord: 't a - t - -', remainingTries: 8 }
+    let expectedObject = {
+      secretWord: 'sugar',
+      progressWord: 's - - - -',
+      remainingTries: 8,
+      wrongLetterList: '',
+      username: 'tim'
+    }
 
     assert.deepEqual(sut, expectedObject)
   })
 
-  it('should reduce remainingTries property with wrong guessedLetter', function () {
-    let wordObject = '{"secretWord":"tactic","progressWord":"t - - t - -","remainingTries":8}'
-    let guessedLetter = 'x'
-    let sut = wordUpdater.updateWord(wordObject, guessedLetter)
+  it('should update remainingTries and wrongLetterList with wrong guessedLetter', function () {
+    let sessionObject = {
+      secretWord: 'sugar',
+      progressWord: '- - - - -',
+      remainingTries: 8,
+      wrongLetterList: '',
+      username: 'tim'
+    }
 
-    let expectedObject = { secretWord: 'tactic', progressWord: 't - - t - -', remainingTries: 7 }
+    let guessedLetter = 'x'
+    let sut = wordUpdater.updateWord(sessionObject, guessedLetter)
+
+    let expectedObject = {
+      secretWord: 'sugar',
+      progressWord: '- - - - -',
+      remainingTries: 7,
+      wrongLetterList: 'x  ',
+      username: 'tim'
+    }
 
     assert.deepEqual(sut, expectedObject)
   })
