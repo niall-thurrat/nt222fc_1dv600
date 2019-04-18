@@ -6,7 +6,7 @@
  * @returns {string} representing an image when logged on console
  *
  */
-function getNewImage (imageName) {
+function updateHangman (imageName) {
   if (imageName === 'hangman-image-8') {
     return '    ##========\\ \n' +
            '    || /\n' +
@@ -100,4 +100,4 @@ function getNewImage (imageName) {
   } else { throw new Error('parameter not recognised') }
 }
 
-module.exports.getNewImage = getNewImage
+module.exports.updateHangman = updateHangman

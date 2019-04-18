@@ -159,14 +159,14 @@ function Hangman () {
       space: false
     })
 
-    console.log(`SECRET WORD REVEALED: ${this.sessionObject.secretWord}`)
+    console.log(`SECRET WORD REVEALED FOR DEV TESTING: ${this.sessionObject.secretWord}`)
 
     // display game message
     console.log(chalk.redBright(messageGenerator.getNewMessage('game-message-' +
     this.sessionObject.remainingTries, this.sessionObject.username)))
 
     // displays hangman image
-    console.log(chalk.cyan(imageGenerator.getNewImage('hangman-image-' + this.sessionObject.remainingTries)))
+    console.log(chalk.cyan(imageGenerator.updateHangman('hangman-image-' + this.sessionObject.remainingTries)))
 
     // print game details to termainal
     console.log(chalk.redBright(`SECRET WORD: ${this.sessionObject.progressWord}`))
@@ -260,6 +260,7 @@ function Hangman () {
       let gameScore = this.sessionObject.remainingTries
       let pastHighScores = []
 
+      // get storedHighScores if it exists
       if (localStorage.getItem('storedHighScores')) {
         pastHighScores = JSON.parse(localStorage.getItem('storedHighScores'))
       }
