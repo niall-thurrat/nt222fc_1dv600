@@ -72,13 +72,35 @@ function Hangman () {
 
     // MAIN MENU OPTION 2 SELECTED (View high-score board)
     if (index === 1) {
-      let scoresForBoard = JSON.parse(localStorage.getItem('storedHighScores'))
+      clear()
+
+      // displays the game title banner
+      CFonts.say('Hangman', {
+        font: 'block',
+        colors: ['cyanBright', 'red'],
+        space: false
+      })
+
+      console.log('')
+
+      // displays the high-score header
+      CFonts.say('HIGH-SCORE BOARD', {
+        font: 'chrome',
+        colors: ['cyanBright', 'white', 'red'],
+        space: false
+      })
+
+      console.log('')
+
+      let scoresForBoard = []
+
+      if (localStorage.getItem('storedHighScores')) {
+        scoresForBoard = JSON.parse(localStorage.getItem('storedHighScores'))
+      }
+
       let board = highScoreBoard.displayBoard(scoresForBoard)
 
       console.log(`${board.toString()}\n`)
-
-      // console.log(table[1]) useful to know for testing
-      // console.log(table[1][1])
 
       readlineSync.keyInPause(chalk.yellow('TO RETURN TO THE MAIN MENU...'))
 

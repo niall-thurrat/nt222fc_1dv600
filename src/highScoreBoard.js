@@ -47,33 +47,13 @@ function updateHighScores (username, gameScore, pastHighScores) {
 }
 
 /**
- * creates the high-score board
+ * creates and populates high-score board
  *
- * @param {string} imageName - identifies which image should be returned /////////////////////// change
- * @returns {string} representing an image when logged on console //////////////////////////////// change
+ * @param {object} scoresForBoard - an array of up to 5 objects with username + highScore properties
+ * @returns {object} board - is an instance of Table with inserted high-scores
  *
  */
 function displayBoard (scoresForBoard) {
-  clear()
-
-  // displays the game title banner
-  CFonts.say('Hangman', {
-    font: 'block',
-    colors: ['cyanBright', 'red'],
-    space: false
-  })
-
-  console.log('')
-
-  // displays the high-score header
-  CFonts.say('HIGH-SCORE BOARD', {
-    font: 'chrome',
-    colors: ['cyanBright', 'white', 'red'],
-    space: false
-  })
-
-  console.log('')
-
   // instantiate table and push values to it
   let board = new Table({ head: ['NAME', 'SCORE', 'RANK'], colWidths: [20, 15, 15] })
 
