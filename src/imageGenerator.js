@@ -87,17 +87,9 @@ function updateHangman (imageName) {
     '    ||    /\n' +
     '    ||\n' +
     '#####################\n'
-  } else if (imageName === 'hangman-image-0') {
-    return '    ##========\\ \n' +
-    '    || /    |\n' +
-    '    ||/     0\n' +
-    '    ||   >--|--<\n' +
-    '    ||      |\n' +
-    '    ||     / \\ \n' +
-    '    ||    /   \\ \n' +
-    '    ||\n' +
-    '#####################\n'
-  } else { throw new Error('parameter not recognised') }
+  } else {
+    throw new Error('parameter not recognised')
+  }
 }
 
 module.exports.updateHangman = updateHangman

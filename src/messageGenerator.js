@@ -33,9 +33,6 @@ function getNewMessage (messageName, username) {
   if (messageName === 'game-message-1') {
     return `\nOh no!!! No more bad guesses ${username} - otherwise you're gonna hang!!!!\n`
   }
-  if (messageName === 'game-message-0') {
-    return '\nMESSAGE: Game over boss\n'
-  }
 }
 
 module.exports.getNewMessage = getNewMessage
