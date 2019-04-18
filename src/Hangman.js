@@ -108,7 +108,42 @@ function Hangman () {
 
     // MAIN MENU OPTION 3 SELECTED (Read game instructions)
     if (index === 2) {
-      // do
+      clear()
+
+      // displays the game title banner
+      CFonts.say('Hangman', {
+        font: 'block',
+        colors: ['cyanBright', 'red'],
+        space: false
+      })
+
+      console.log('')
+
+      /// /////// I'm aware the following instructions look terrible in this position and ///////////
+      /// /////// should be moved out of here but I've ran out of time ARGGHHHHH!! //////////////////
+      console.log('----- HOW TO PLAY HANGMAN\n')
+      console.log('Hangman is a word guessing game where you must guess letters of a predefined word \n' +
+      '(nouns from the English dictionary) with a view to finally guessing all the letters in the word. \n' +
+      'With each correct guess your letter will be added into the ‘SECRET WORD’ which starts of as a \n' +
+      'bunch of dashes. With each wrong guess a piece will be added to the hanging man which starts off \n' +
+      'as a simple base, and your ‘REMAINING TRIES’ will be reduced. If all the pieces which complete \n' +
+      'the hangman are added to the picture, you lose the game.  You win the game if you complete the \n' +
+      'word by guessing all the letters. Simple!\n\n')
+      console.log('----- REMEMBER\n')
+      console.log('-   You can only add one letter at a time. If you add a number you’ll lose a life \n' +
+      'for sheer stupidity. If you add 0 or more than 1 letter you’ll not lose a life, though you \n' +
+      'probably should. If you add the same letter wrongly again, you’ll lose a life again.\n' +
+      '-   The \'WRONG LETTER LIST\' reminds you which letters you’ve guessed\n\n')
+      console.log('----- THE HIGH-SCORE BOARD\n')
+      console.log('Your final game score is equivalent to the amount of ‘REMAINING TRIES’ you have left \n' +
+      'when you complete the word.  The winning message when you compete the word will let you know when \n' +
+      'you\'ve got onto the score board.  You can always check the high score board from the main menu to \n' +
+      'see if you\'ve made it.\n\n')
+      console.log('      GOOD LUCK!!!\n\n')
+
+      readlineSync.keyInPause(chalk.yellow('TO RETURN TO THE MAIN MENU...'))
+
+      this.displayWelcomeScreen()
     }
 
     // MAIN MENU OPTION 4 SELECTED (Quit application)
