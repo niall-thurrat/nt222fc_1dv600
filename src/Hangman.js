@@ -295,7 +295,8 @@ function Hangman () {
 
       // SCORE GOOD ENOUGH FOR HIGH-SCORE BOARD
       if (isNewScoreGoodEnough === 'yes') {
-        console.log('\n\n    YOU WIN!!!\n\n    CONGRATULATIONS YOU\'VE MADE THE HIGH-SCORE BOARD!!!\n\n\n\n\n')
+        console.log('\n\n    YOU WIN!!!\n\n' +
+        '    CONGRATULATIONS YOU\'VE MADE THE HIGH-SCORE BOARD!!!\n\n\n\n\n')
       } else {
         // DIDN'T GET ON THE BOARD :(
         console.log('\n\n    YOU WIN!!!\n\n\n\n\n\n\n')

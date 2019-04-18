@@ -1,6 +1,4 @@
 
-const clear = require('clear')
-const CFonts = require('cfonts')
 const Table = require('cli-table')
 
 const LocalStorage = require('node-localstorage').LocalStorage
@@ -9,9 +7,11 @@ const localStorage = new LocalStorage('./localstorage')
 /**
  * uses gameScore to check and update stored high-scores
  *
- * @param {string} username -
- * @param {string} gameScore -
- * @returns {string}
+ * @param {string} username
+ * @param {string} gameScore
+ * @param {object} pastHighScores - array of objects with username and highScore properties
+ * @returns {object} - array with 2 properties, 1) highScoreList array, and
+ * 2) a 'yes' or 'no' string to answer if highScoreList is different to pastHighScores
  *
  */
 function updateHighScores (username, gameScore, pastHighScores) {
@@ -35,6 +35,7 @@ function updateHighScores (username, gameScore, pastHighScores) {
         highScoreList = highScoreList.sort((b, a) => { return a.highScore - b.highScore })
         return [highScoreList, 'yes']
       } else {
+        // if newScore is good enough for high-score board
         return [highScoreList, 'no']
       }
     } else {
